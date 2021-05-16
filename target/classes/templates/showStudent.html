@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>First page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="student">
+    
+  <table>
+      <tr>
+        <th>NAME</th>
+        <th>Course</th>
+        <th>Group name</th>
+        <th>Level</th>
+      </tr>
+      <tr>
+        <td th:text="${student}">surname, name</td>
+        <td th:text="${student.course}">2.41</td>
+        <td th:text="${student.group.name}"></td>
+        <td th:text="${student.level}">0</td>
+      </tr>
+    </table>
+<!--     <a th:href="${(#mvc.url('EC#getData')).build()}">Get Data Param</a> -->
+  
+ 
+</div>
+</body>
+</html>

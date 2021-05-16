@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New group</title>
+</head>
+<body>
+
+<form th:method="post" th:action="@{/addgroup}" th:object="${group}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    
+    <label for="numberOfGroup">Enter numberOfGroup: </label>
+    <input type="number" th:field="*{numberOfGroup}" id="number"/>
+    
+    <label for="startLearning">Enter start learning: </label>
+    <input type="date" th:field="*{startLearning}" id="start"/>
+    
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>

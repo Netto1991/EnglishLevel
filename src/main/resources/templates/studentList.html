@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>First page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="studentsList" th:unless="${#lists.isEmpty(students)}">
+    
+  <table>
+      <tr>
+      	<th>Id</th>
+        <th>Name</th>
+        <th>Курс</th>
+        <th>Уровень</th>
+      </tr>
+      <tr th:each="student : ${students}">
+      	<td th:text="${student.Id}">Id</td>
+      	<td th:text="${student}">student's name</td>
+        <td th:text="${student.course}">course</td>
+        <td th:text="${student.level}">level</td>
+      </tr>
+    </table>
+</div>
+</body>
+</html>

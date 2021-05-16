@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+</head>
+<body>
+
+ <h2 class="form-signin-heading">Create your account</h2>
+
+<form th:method="post" th:action="@{/registration}" th:object="${userForm}" enctype="multipart/form-data">
+    <label for="username">Enter username: </label>
+    <input type="text" th:field="*{username}" id="name"/>
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect date</p>
+    
+    <label for="loadfile">Profile picture</label>
+    <input type="file" 
+    		name="profilePicture"
+    		accept="image/jpeg, image/png, image/gif"/><br/>
+    
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+    
+    <label for="passwordConfirm">Enter password confirm: </label>
+    <input type="text" th:field="*{passwordConfirm}" id="passwordConfirm"/>
+    <p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Incorrect date</p>
+    
+<!--     <label for="firstName">Enter first name: </label> -->
+<!--     <input type="text" th:field="*{firstName}" id="firstName"/> -->
+    
+<!--     <label for="lastName">Enter last name: </label> -->
+<!--     <input type="text" th:field="*{lastName}" id="lastName"/> -->
+    
+<!--     <label for="mail">Enter mail: </label> -->
+<!--     <input type="text" th:field="*{mail}" id="mail"/> -->
+    
+<!--     <label for="phoneNumber">Enter phone number: </label> -->
+<!--     <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/> -->
+    
+    
+    <br/>
+    <input type="submit" value="Registration"/>
+</form>
+
+</body>
+</html>

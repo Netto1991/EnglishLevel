@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>First page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="group">
+    
+	  <table>
+	      <tr>
+	        <th>NAME</th>
+	        <th>Номер группы</th>
+	        <th>Дата поступления</th>
+	      </tr>
+	      <tr>
+	        <td >
+	        	<a href="showGroup.html" th:href="@{'/'+${group.groupId}}" th:text="${group.name}">"${group.name}"</a></td>
+	        <td th:text="${group.numberOfGroup}">2.41</td>
+	        <td th:text="${{group.startLearning}}"></td>
+	      </tr>
+	    </table>
+	<!--     <a th:href="${(#mvc.url('EC#getData')).build()}">Get Data Param</a> -->
+  
+ 
+	</div>
+	<div>
+		<a href="studentsList.html" th:href="@{'/'+${group.groupId}+'/students'}">Students</a>
+	</div>
+</body>
+</html>

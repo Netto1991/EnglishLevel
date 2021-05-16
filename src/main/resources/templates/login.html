@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+</head>
+<body>
+
+ <h2 class="form-signin-heading">Create your account</h2>
+
+<form th:method="post" th:action="@{/perform_login}">
+    <label for="username">Enter username: </label>
+    <input type="text" name="username" id="name"/>
+    <span th:text="${message}"></span>
+    
+    <label for="password">Enter password: </label>
+    <input type="text" name="password" id="password"/>
+    <span th:text="${error}"></span>
+	<input id="remember_me" name="remember-me" type="checkbox"/>
+	<label for="remember_me" class="inline">Remember me</label>
+    
+<!--     <label for="firstName">Enter first name: </label> -->
+<!--     <input type="text" th:field="*{firstName}" id="firstName"/> -->
+    
+<!--     <label for="lastName">Enter last name: </label> -->
+<!--     <input type="text" th:field="*{lastName}" id="lastName"/> -->
+    
+<!--     <label for="mail">Enter mail: </label> -->
+<!--     <input type="text" th:field="*{mail}" id="mail"/> -->
+    
+<!--     <label for="phoneNumber">Enter phone number: </label> -->
+<!--     <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/> -->
+    
+    
+    <br/>
+    <input type="submit" value="Login"/>
+</form>
+
+</body>
+</html>

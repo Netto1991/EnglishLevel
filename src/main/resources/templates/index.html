@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>First page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<header>
+	<h3 th:inline="text">Welcome [[${loginUser}]]</h3>
+	</header>
+	<div sec:authorize="isAuthenticated()">
+      Authenticated as <span sec:authentication="name">Username</span>
+    </div>
+    
+	<div class="groupsList" th:unless="${#lists.isEmpty(groups)}">
+	
+	<form th:method="post" th:action="@{/logout}">
+    	<input type="submit" value="Logout"/>
+	</form>
+	
+	<form th:method="get" th:action="@{/login}">
+    	<input type="submit" value="Login"/>
+	</form>
+    
+  <table>
+      <tr>
+      	<th>Id</th>
+        <th>NAME</th>
+        <th>Номер группы</th>
+        <th>Дата поступления</th>
+        <th>Students</th>
+      </tr>
+      <tr th:each="group : ${groups}">
+      <td th:text="${group.groupId}">group's Id</td>
+        <td >
+        	<a href = showGroup.html th:href = "@{'/'+${group.groupId}}" th:text="${group.name}">group's name</a>
+        </td>
+        <td th:text="${group.numberOfGroup}">group's number</td>
+        <td th:text="${{group.startLearning}}">date of start</td>
+        <td >
+        	<a href = studentList.html th:href = "@{'/'+${group.groupId}+'/students'}">Students</a>
+        </td>
+      </tr>
+    </table>
+  
+ 
+</div>
+</body>
+</html>
