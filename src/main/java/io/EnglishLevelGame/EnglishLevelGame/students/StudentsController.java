@@ -3,9 +3,12 @@ package io.EnglishLevelGame.EnglishLevelGame.students;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,11 +52,14 @@ public class StudentsController {
 	@PostMapping("/addstudents")
 	public String addStudents
 	(@PathVariable("groupId") 
-	Integer groupId, Student student) throws DuplicateStudentException {
+	Integer groupId, @Valid Student student, BindingResult bindingResult) throws DuplicateStudentException {
+			if (bindingResult.hasErrors()) {
+				return "addEditStudent";
+			}
 		Group group = groupService.showOneGroup(groupId);
 		student.setGroup(group);
 		Student tempStudent = studentService.showOneStudent(student.getId());
-		if(tempStudent == null) {
+		if(tempStudent != null) {
 			throw new DuplicateStudentException("This Student already exist");
 		}
 		studentService.saveStudent(student);
@@ -70,7 +76,10 @@ public class StudentsController {
 	
 	@PostMapping("{studentId}/editstudents")
 	public String editStudents
-	(Student student) {
+	(@Valid Student student, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "addEditStudent";
+		}
 		studentService.saveStudent(student);
 		return "redirect:/";
 	}

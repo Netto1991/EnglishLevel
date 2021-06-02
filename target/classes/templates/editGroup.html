@@ -10,9 +10,11 @@
 <form th:method="post" th:action="@{/addgroup}" th:object="${group}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
     
     <label for="numberOfGroup">Enter numberOfGroup: </label>
     <input type="number" th:field="*{numberOfGroup}" id="number"/>
+    <p th:if="${#fields.hasErrors('numberOfGroup')}" th:errors="*{numberOfGroup}">Number of group Error</p>
     
     <label for="startLearning">Enter start learning: </label>
     <input type="date" th:field="*{startLearning}" id="start"/>

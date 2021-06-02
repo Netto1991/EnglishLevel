@@ -7,6 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "Students")
@@ -15,9 +20,18 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
+	@NotNull
+	@Size(min=2, max=15)
 	private String name;
+	@NotNull
+	@Size(min=2, max=15)
 	private String surname;
+	@NotNull
+	@Min(1)
+	@Max(5)
 	private int course;
+	@NotNull
+	@Max(10)
 	private Integer level;
 	
 	@ManyToOne
