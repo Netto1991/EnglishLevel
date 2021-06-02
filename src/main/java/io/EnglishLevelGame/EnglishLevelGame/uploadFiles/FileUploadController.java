@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
-@Controller
+//@Controller
 public class FileUploadController {
 
 	private final StorageService storageService;

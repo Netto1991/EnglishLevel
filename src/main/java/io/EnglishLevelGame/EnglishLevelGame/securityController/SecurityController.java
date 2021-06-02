@@ -7,12 +7,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.EnglishLevelGame.EnglishLevelGame.authenticationUser.UserAuth;
 import io.EnglishLevelGame.EnglishLevelGame.security.SecurityLoginService;
 import io.EnglishLevelGame.EnglishLevelGame.security.UserService;
 import io.EnglishLevelGame.EnglishLevelGame.security.UserValidate;
+import io.EnglishLevelGame.EnglishLevelGame.uploadFiles.StorageService;
 
 @Controller
 public class SecurityController {
@@ -22,6 +26,9 @@ public class SecurityController {
 	
 	@Autowired
 	private UserValidate userValidate;
+	
+	@Autowired
+	private StorageService storageService;
 	
 //	@Autowired
 //	private SecurityLoginService securityLoginService;
@@ -35,13 +42,18 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/registration")
-	public String registrationUser(@RequestPart("profilePicture") byte[] profilePicture, 
+	public String registrationUser(@RequestParam("file") MultipartFile file,
+									RedirectAttributes redirectAttributes, 
 									@ModelAttribute("userForm") UserAuth userForm, 
 									BindingResult bindingResult) {
 		userValidate.validate(userForm, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
+		storageService.store(file);
+		redirectAttributes.addFlashAttribute("message",
+				"You successfully uploaded " + file.getOriginalFilename() + "!");
+		userForm.setImage(storageService.load(file.getOriginalFilename()));
 		
 		userService.save(userForm);
 		

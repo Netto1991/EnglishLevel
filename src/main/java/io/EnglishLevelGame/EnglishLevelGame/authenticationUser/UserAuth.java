@@ -1,5 +1,7 @@
 package io.EnglishLevelGame.EnglishLevelGame.authenticationUser;
 
+import java.nio.file.Path;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -35,13 +37,15 @@ public class UserAuth {
 	
 	private String phoneNumber;
 	
+	private Path image;
+	
 	
 
 	public UserAuth() {
 	}
 
 	public UserAuth(String username, String password, ApplicationUserRole role, String firstName, String lastName,
-			String mail, String phoneNumber, String passwordConfirm) {
+			String mail, String phoneNumber, String passwordConfirm, Path image) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -51,6 +55,7 @@ public class UserAuth {
 		this.mail = mail;
 		this.phoneNumber = phoneNumber;
 		this.passwordConfirm = passwordConfirm;
+		this.image = image;
 	}
 
 	public Long getId() {
@@ -65,8 +70,6 @@ public class UserAuth {
 		return password;
 	}
 	
-
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -74,8 +77,6 @@ public class UserAuth {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 	public String getPasswordConfirm() {
 		return passwordConfirm;
@@ -123,6 +124,14 @@ public class UserAuth {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Path getImage() {
+		return image;
+	}
+
+	public void setImage(Path image) {
+		this.image = image;
 	}
 
 }

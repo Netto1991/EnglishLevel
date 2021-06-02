@@ -8,6 +8,8 @@
 	<header>
 	<h3 th:inline="text">Welcome [[${loginUser}]]</h3>
 	</header>
+	
+	 <span th:text="${message}"></span>
 	<div sec:authorize="isAuthenticated()">
       Authenticated as <span sec:authentication="name">Username</span>
     </div>
