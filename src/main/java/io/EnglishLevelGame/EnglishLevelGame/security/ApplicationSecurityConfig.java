@@ -69,6 +69,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(daoAuthenticationProvider());
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+		auth.inMemoryAuthentication()
+			.withUser("user")
+			.password(passwordEncoder.encode("123"))
+			.roles("STUDENT");
 		}
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
