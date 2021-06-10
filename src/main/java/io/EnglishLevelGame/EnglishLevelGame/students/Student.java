@@ -11,9 +11,12 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.sun.istack.NotNull;
 
 @Entity
+@DynamicUpdate
 @Table(name = "Students")
 public class Student {
 	
@@ -53,6 +56,10 @@ public class Student {
 		return Id;
 	}
 
+
+	public void setId(Long id) {
+		Id = id;
+	}
 
 	public Group getGroup() {
 		return group;

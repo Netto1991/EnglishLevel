@@ -37,7 +37,7 @@ public class UserAuth {
 	
 	private String phoneNumber;
 	
-	private Path image;
+	private String image;
 	
 	
 
@@ -45,7 +45,7 @@ public class UserAuth {
 	}
 
 	public UserAuth(String username, String password, ApplicationUserRole role, String firstName, String lastName,
-			String mail, String phoneNumber, String passwordConfirm, Path image) {
+			String mail, String phoneNumber, String passwordConfirm, String image) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -126,11 +126,11 @@ public class UserAuth {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Path getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Path image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

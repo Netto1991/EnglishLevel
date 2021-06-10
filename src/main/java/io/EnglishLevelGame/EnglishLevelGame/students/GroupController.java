@@ -3,6 +3,8 @@ package io.EnglishLevelGame.EnglishLevelGame.students;
 
 
 import java.security.Principal;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -57,19 +59,45 @@ public class GroupController {
 	@GetMapping("/{groupId}/edit")
 	public String showEditGroupForm(@PathVariable("groupId") 
 		Integer groupId, Model model) {
-		model.addAttribute("group", groupService.showOneGroup(groupId));
+		Group group = groupService.showOneGroup(groupId);
+		model.addAttribute("group", group);
+		if(group.getStudents().size() == 0) {
+			System.out.println("LIST IS EMPTY");
+		}
+		for(Student student: group.getStudents()) {
+			System.out.println(student.toString());
+		}
 		return "editGroup";
 		}
 	
 	
-	@PostMapping({"/addgroup", "/{groupId}/edit"})
-	public String editGroup(@Valid Group group, BindingResult bindingResult) 
+	@PostMapping({"/addgroup"})
+	public String addGroup(@Valid Group group, BindingResult bindingResult) 
 	{
 		if (bindingResult.hasErrors()) {
 			return "editGroup";
 		}
 		groupService.saveGroup(group);
 				return "redirect:/";
+	}
+	
+	@PostMapping({"/{groupId}/edit"})
+	public String editGroup(@Valid Group group, 
+			@PathVariable("groupId") Integer groupId,
+			BindingResult bindingResult) 
+		{
+			if (bindingResult.hasErrors()) {
+				return "editGroup";
+		}
+		
+		group.setGroupId(groupId);
+		Set<Student> students = group.getStudents().stream()
+				.peek((student) -> student.setGroup(group))
+				.collect(Collectors.toSet());
+		group.setStudents(students);
+		groupService.saveGroup(group);
+		
+		return "redirect:/";
 	}
 	
 	@DeleteMapping()

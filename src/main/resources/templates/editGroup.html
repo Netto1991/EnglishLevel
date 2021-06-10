@@ -20,7 +20,8 @@
     <input type="date" th:field="*{startLearning}" id="start"/>
     
     <br/>
-    <input type="submit" value="Create!"/>
+    <input th:if="${group.groupId}" th:formaction="@{/{groupId}/edit (groupId = ${groupId})}" type="submit" value="Update"/>
+    <input th:unless="${group.groupId}" type="submit" value="Create!"/>
 </form>
 
 </body>

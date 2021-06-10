@@ -15,5 +15,7 @@ public interface StudentService {
 	
 	void saveStudent(Student student);
 	
+	void saveStudent(Student student, Integer groupId);
+	
 	void deleteStudent(Student student);
 }

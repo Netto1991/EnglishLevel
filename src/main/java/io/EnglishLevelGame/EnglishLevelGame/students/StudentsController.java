@@ -56,13 +56,11 @@ public class StudentsController {
 			if (bindingResult.hasErrors()) {
 				return "addEditStudent";
 			}
-		Group group = groupService.showOneGroup(groupId);
-		student.setGroup(group);
 		Student tempStudent = studentService.showOneStudent(student.getId());
 		if(tempStudent != null) {
 			throw new DuplicateStudentException("This Student already exist");
 		}
-		studentService.saveStudent(student);
+		studentService.saveStudent(student, groupId);
 		return "redirect:/";
 	}
 	
@@ -76,11 +74,13 @@ public class StudentsController {
 	
 	@PostMapping("{studentId}/editstudents")
 	public String editStudents
-	(@Valid Student student, BindingResult bindingResult) {
+								(@PathVariable("groupId") Integer groupId,
+								@Valid Student student, 
+								BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "addEditStudent";
 		}
-		studentService.saveStudent(student);
+		studentService.saveStudent(student, groupId);
 		return "redirect:/";
 	}
 	
@@ -92,29 +92,32 @@ public class StudentsController {
 		return "showStudent";
 		}
 	
-	@PostMapping(value = "{studentId}", name = "incrimentLevel")
+	@PostMapping(params = "incrimentLevel")
 	public String incrementLevel(@PathVariable("studentId") Long studentId,
 								@PathVariable("groupId") int groupId,
+								
 									Model model) {
-		Student student = studentService.showOneStudent(studentId);
+		Student student = (Student) model.getAttribute("student");
+		student.setId(studentId);
 		int level = student.getLevel();
 		if(level < 5) {
 			student.setLevel(level+1);
-			studentService.saveStudent(student);
+			studentService.saveStudent(student, groupId);
 		}
 		model.addAttribute("groupId", groupId);
 		return "redirect:/{groupId}/students";
 	}
 	
-	@PostMapping(value = "{studentId}", name = "decrimentLevel")
+	@PostMapping(params = "decrimentLevel")
 	public String decrementLevel(@PathVariable("studentId") Long studentId,
 								@PathVariable("groupId") int groupId,
 									Model model) {
 		Student student = (Student) model.getAttribute("student");
+		student.setId(studentId);
 		int level = student.getLevel();
 		if(level != 0) {
 			student.setLevel(level-1);
-			studentService.saveStudent(student);
+			studentService.saveStudent(student, groupId);
 		}
 		model.addAttribute("groupId", groupId);
 		return "redirect:/{groupId}/students/";

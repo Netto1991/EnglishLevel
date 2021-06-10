@@ -19,6 +19,11 @@
       	<td th:text="${student}">student's name</td>
         <td th:text="${student.course}">course</td>
         <td th:text="${student.level}">level</td>
+        <td>
+        <form th:method="post" th:action="@{/}">
+        	<input type="submit" name="incrimentLevel" value="+1" />
+        	<input type="submit" name="decrimentLevel" value="-1" />
+        </form>
       </tr>
     </table>
 </div>

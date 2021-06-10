@@ -53,7 +53,7 @@ public class SecurityController {
 		storageService.store(file);
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
-		userForm.setImage(storageService.load(file.getOriginalFilename()));
+		userForm.setImage(storageService.load(file.getOriginalFilename()).toString());
 		
 		userService.save(userForm);
 		

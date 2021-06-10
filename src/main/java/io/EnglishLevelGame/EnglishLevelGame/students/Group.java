@@ -13,7 +13,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
+@DynamicUpdate
 @Table(name = "Groups")
 public class Group {
 	
@@ -31,8 +34,6 @@ public class Group {
         orphanRemoval = true)
 	 private Set<Student> students;
 	
-	
-	
 	public Group() {
 	}
 
@@ -43,10 +44,30 @@ public class Group {
 		this.numberOfGroup = numberOfGroup;
 		this.startLearning = startLearning;
 	}
+	
+	
+
+	public Group(@NotNull @Size(min = 2, max = 30) String name, @NotNull Integer numberOfGroup, Date startLearning,
+			Set<Student> students) {
+		super();
+		this.name = name;
+		this.numberOfGroup = numberOfGroup;
+		this.startLearning = startLearning;
+		this.students = students;
+	}
+
+
 
 	public Integer getGroupId() {
 		return groupId;
 	}
+	
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -80,6 +101,24 @@ public class Group {
 
 	public void setStartLearning(Date startLearning) {
 		this.startLearning = startLearning;
+	}
+
+
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+
+
+	public void setStudents(Set<Student> students) {
+		if (this.students == null) {
+			this.students = students;
+		}
+		else {
+			this.students.retainAll(students);
+			this.students.addAll(students);
+		}
 	}
 	
 	
